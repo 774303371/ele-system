@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gome.ocs.manager.dao.IGomeOnlineGroupDao">
+	<resultMap id="GomeOnlineGroupMap" type="com.gome.ocs.manager.model.GomeOnlineGroupModel">
+	    <result column="group_id" jdbcType="VARCHAR" property="groupId" />
+	    <result column="group_name" jdbcType="VARCHAR" property="groupName" />
+	    <result column="group_describe" jdbcType="VARCHAR" property="groupDescribe" />
+	    <result column="group_parent_id" jdbcType="VARCHAR" property="groupParentId" />
+	    <result column="binding_code" jdbcType="VARCHAR" property="bindingCode" />
+	    <result column="company_id" jdbcType="INTEGER" property="companyId" />
+	    <result column="creat_time" jdbcType="TIMESTAMP" property="creatTime" />
+  	</resultMap>
+  	
+  	<resultMap type="com.gome.ocs.manager.model.GomeOnlineGroupUserModel" id="GroupsUsersAllMap">
+  		 <result column="group_id" jdbcType="VARCHAR" property="groupId" />
+	    <result column="group_name" jdbcType="VARCHAR" property="groupName" />
+	    <result column="group_describe" jdbcType="VARCHAR" property="groupDescribe" />
+	    <result column="group_parent_id" jdbcType="VARCHAR" property="groupParentId" />
+	    <result column="online_user_id" jdbcType="VARCHAR" property="onlineUserId" />
+	    <result column="online_user_name" jdbcType="VARCHAR" property="onlineUserName" />
+	    <result column="online_name" jdbcType="VARCHAR" property="onlineName" />
+	    <result column="company_id" jdbcType="INTEGER" property="companyId" />
+	    <result column="is_removed" jdbcType="INTEGER" property="isRemoved" />
+  	</resultMap>
+  	
+  	<sql id="GomeOnlineGroupColumn">
+  		groups.group_id,groups.group_name,groups.group_describe,groups.group_parent_id,groups.binding_code,groups.company_id,groups.creat_time 
+  	</sql>
+  	
+  	<select id="getGroups" resultMap="GomeOnlineGroupMap" >
+  		select
+  		<include refid="GomeOnlineGroupColumn"/>
+  		from gome_online_group groups
+  	</select>
+  	
+  	<select id="getGroupForUserName" resultMap="GomeOnlineGroupMap" parameterType="String">
+  		SELECT 
+  		<include refid="GomeOnlineGroupColumn"/>
+  		FROM gome_online_group groups LEFT JOIN gome_online_group_user groupuser  ON groups.group_id = groupuser.group_id 
+  		LEFT JOIN gome_online_user users ON users.online_user_id = groupuser.online_user_id 
+  		WHERE users.online_user_name = #{userName}
+  	</select>
+  	
+  	<select id="getGroupForGroupId" resultMap="GomeOnlineGroupMap" parameterType="String">
+  		SELECT 
+  		<include refid="GomeOnlineGroupColumn"/>
+  		FROM gome_online_group groups 
+  		WHERE groups.group_id = #{groupId}
+  	</select>
+  	
+  	<select id="getGroupForGroupIds" resultMap="GomeOnlineGroupMap" parameterType="java.util.List">
+  		SELECT 
+  		<include refid="GomeOnlineGroupColumn"/>
+  		FROM gome_online_group groups 
+  		WHERE groups.group_id in 
+  		<foreach collection="list" item="groupId" index="index"
+	   separator="," open="(" close=")">
+	   #{groupId,jdbcType=VARCHAR}
+	  </foreach>
+  	</select>
+  	
+  	<select id="getGroupForGroupName" resultMap="GomeOnlineGroupMap" parameterType="String">
+  		SELECT 
+  		<include refid="GomeOnlineGroupColumn"/>
+  		from gome_online_group groups 
+  		WHERE groups.company_id = #{companyId} 
+  		<if test="groupName != null">
+	  		 groups.group_name = #{groupName}
+  		</if>
+  	</select>
+  	
+  	<select id="getParentGroups" resultMap="GomeOnlineGroupMap" parameterType="Int">
+  		SELECT  
+  			<include refid="GomeOnlineGroupColumn"/>
+  		 FROM gome_online_group WHERE group_id IN (
+			SELECT group_parent_id FROM gome_online_group WHERE group_parent_id IS NOT NULL GROUP BY group_parent_id 
+		) AND company_id = #{companyId} 
+  	</select>
+  	
+  	<update id="updateGroup" parameterType="com.gome.ocs.manager.model.GomeOnlineGroupModel" >
+  		update gome_online_group 
+  		<set>
+  			<if test="groupName != null">
+  				group_name = #{groupName},
+  			</if>
+  			<if test="groupDescribe != null">
+  				group_describe = #{groupDescribe},
+  			</if>
+  			<if test="groupParentId != null">
+  				group_parent_id = #{groupParentId},
+  			</if>
+  			<if test="bindingCode != null">
+  				binding_code = #{bindingCode} 
+  			</if>
+  		</set>
+  		where group_id = #{groupId}
+  	</update>
+  	
+  	<delete id="deleteGroup" parameterType="String">
+  		DELETE FROM gome_online_group WHERE group_id = #{groupId} 
+  	</delete>
+  	
+  	<insert id="creatGroup" parameterType="com.gome.ocs.manager.model.GomeOnlineGroupModel">
+  		INSERT INTO gome_online_group 
+  		<trim prefix="(" suffix=")" suffixOverrides=",">
+  			<if test="groupId != null">
+  				group_id,
+  			</if>
+  			<if test="groupName != null">
+  				group_name,
+  			</if>
+  			<if test="groupDescribe != null">
+  				group_describe,
+  			</if>
+  			<if test="groupParentId != null">
+  				group_parent_id,
+  			</if>
+  			<if test="bindingCode != null">
+  				binding_code,
+  			</if>
+  		</trim>
+  		<trim prefix="values (" suffix=")" suffixOverrides=",">
+  			<if test="groupId != null">
+  				#{groupId},
+  			</if>
+  			<if test="groupName != null">
+  				#{groupName},
+  			</if>
+  			<if test="groupDescribe != null">
+  				#{groupDescribe},
+  			</if>
+  			<if test="groupParentId != null">
+  				#{groupParentId},
+  			</if>
+  			<if test="bindingCode != null">
+  				#{bindingCode},
+  			</if>
+  		</trim>
+  	</insert>
+  	
+  	<select id="getAllGroupUser" resultMap="GroupsUsersAllMap">
+  		SELECT groups.group_id,groups.group_name,groups.group_describe,groups.group_parent_id,users.online_user_id,users.online_user_name,users.online_name 
+  		FROM gome_online_group groups LEFT JOIN gome_online_group_user groupuser  
+  		ON groups.group_id = groupuser.group_id LEFT JOIN gome_online_user users 
+  		ON users.online_user_id = groupuser.online_user_id WHERE users.is_removed = 1 
+  	</select>
+  	
+  	
+</mapper>
