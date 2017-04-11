@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gome.ocs.manager.dao.ITestDao">
+	<!--
+	<resultMap id="TestMap" type="com.gome.ocs.manager.model.RoleModel">
+	    <result column="online_role_id" jdbcType="INTEGER" property="roleId" />
+	    <result column="online_role_name" jdbcType="VARCHAR" property="roleName" />
+	    <result column="company_id" jdbcType="VARCHAR" property="companyId" />
+	    <result column="described" jdbcType="VARCHAR" property="describe" />
+	    <result column="privilege" jdbcType="VARCHAR" property="privilege" />
+  	</resultMap>
+  	-->
+  	<sql id="TestColumn">
+			*
+  	</sql>
+
+	<select id="testIdaoMethod" resultMap="java.util.Map">
+  		select
+		<include refid="TestColumn"/>
+  		FROM ele_test limit 0,1
+  	</select>
+
+	<!--
+	<select id="queryRoleById" parameterType="String" resultMap="RoleMap">
+		select
+		<include refid="RoleColumn"/>
+		FROM gome_online_role where  online_role_id= #{roleId} and company_id=#{companyId}
+	</select>
+
+	<delete id="delRoleById"  parameterType="String">
+		delete form gome_online_role where online_role_id=#{roleId} and company_id=#{companyId}
+	</delete>
+
+
+	<update id="updateRole" parameterType="com.gome.ocs.manager.model.RoleModel">
+		update gome_online_role
+		<set>
+			<if test="roleId != null">
+				online_role_id = #{roleId},
+			</if>
+			<if test="roleName != null">
+				online_role_name = #{roleName},
+			</if>
+			<if test="companyId != null">
+				company_id = #{companyId},
+			</if>
+			<if test="describe != null">
+				described = #{describe},
+			</if>
+			<if test="privilege != null">
+				privilege = #{privilege}
+			</if>
+		</set>
+		where online_role_id = #{roleId} and company_id = #{companyId}
+	</update>
+
+	<insert id="createRole" parameterType="com.gome.ocs.manager.model.RoleModel">
+		INSERT INTO gome_online_role
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="roleName != null">
+				online_role_name,
+			</if>
+			<if test="companyId != null">
+				company_id,
+			</if>
+			<if test="describe != null">
+				described,
+			</if>
+			<if test="privilege != null">
+				privilege,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="roleName != null">
+				#{roleName},
+			</if>
+			<if test="companyId != null">
+				#{companyId},
+			</if>
+			<if test="describe != null">
+				#{describe},
+			</if>
+			<if test="privilege != null">
+				#{privilege},
+			</if>
+		</trim>
+	</insert>
+	-->
+  	
+</mapper>

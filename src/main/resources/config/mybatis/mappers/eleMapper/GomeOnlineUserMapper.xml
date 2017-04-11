@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gome.ocs.manager.dao.IGomeOnlineUserDao">
+	<resultMap id="GomeOnlineUserMap" type="com.gome.ocs.manager.model.GomeOnlineUserModel">
+	    <result column="online_user_id" jdbcType="VARCHAR" property="onlineUserId" />
+	    <result column="online_user_name" jdbcType="VARCHAR" property="onlineUserName" />
+	    <result column="online_name" jdbcType="VARCHAR" property="onlineName" />
+	    <result column="company_id" jdbcType="VARCHAR" property="companyId" />
+	    <result column="is_removed" jdbcType="INTEGER" property="isRemoved" />
+	    <result column="usable_status" jdbcType="INTEGER" property="usableStatus" />
+	    <result column="creat_time" jdbcType="TIMESTAMP" property="creatTime" />
+  	</resultMap>
+  	
+  	<sql id="GomeOnlineUserColumn">
+  		online_user_id,online_user_name,online_name,is_removed,creat_time,company_id,usable_status  
+  	</sql>
+  	
+  	<select id="getUser" parameterType="String" resultMap="GomeOnlineUserMap">
+  		select 
+  		<include refid="GomeOnlineUserColumn"/> 
+  		FROM gome_online_user where online_user_name = #{userName} 
+  	</select>
+  	
+  	<select id="getUsers" parameterType="java.util.Map" resultMap="GomeOnlineUserMap">
+  		select 
+  		<include refid="GomeOnlineUserColumn"/> 
+  		FROM gome_online_user where is_removed = 1 
+  		<if test="onlineUserId != null">
+		   AND online_user_id = #{onlineUserId}
+		</if>
+  		<if test="onlineUserName != null">
+		   AND online_user_name = #{onlineUserName}
+		</if>
+  		<if test="onlineName != null">
+		   AND online_name = #{onlineName}
+		</if>
+  		<if test="companyId != null">
+		   AND company_id = #{companyId}
+		</if>
+  	</select>
+  	
+  	<select id="getUserForuserId" parameterType="String" resultMap="GomeOnlineUserMap">
+  		select 
+  		<include refid="GomeOnlineUserColumn"/> 
+  		FROM gome_online_user where online_user_id = #{userId} 
+  	</select>
+  	
+  	<select id="getUsersForUserIds" parameterType="java.util.List" resultMap="GomeOnlineUserMap">
+  		select 
+  		<include refid="GomeOnlineUserColumn"/> 
+  		FROM gome_online_user where online_user_id in 
+  		<foreach collection="list" item="onlineUserId" index="index"
+	   separator="," open="(" close=")">
+	   #{onlineUserId,jdbcType=VARCHAR}
+	  </foreach>
+  	</select>
+  	
+  	<insert id="createUser" parameterType="com.gome.ocs.manager.model.GomeOnlineUserModel">
+  		INSERT INTO gome_online_user 
+  		<trim prefix="(" suffix=")" suffixOverrides=",">
+  			<if test="onlineUserId != null">
+  				online_user_id,
+  			</if>
+  			<if test="onlineUserName != null">
+  				online_user_name,
+  			</if>
+  			<if test="onlineName != null">
+  				online_name,
+  			</if>
+  		</trim>
+  		<trim prefix="values (" suffix=")" suffixOverrides=",">
+  			<if test="onlineUserId != null">
+  				#{onlineUserId},
+  			</if>
+  			<if test="onlineUserName != null">
+  				#{onlineUserName},
+  			</if>
+  			<if test="onlineName != null">
+  				#{onlineName},
+  			</if>
+  		</trim>
+  	</insert>
+  	
+  	<update id="updateUser">
+  		update gome_online_user 
+  		<set>
+  			<if test="onlineName != null">
+  				online_name = #{onlineName}
+  			</if>
+  		</set>
+  		where online_user_id = #{onlineUserId}
+  	</update>
+  	
+  	<update id="deleteUser">
+  		UPDATE gome_online_user SET is_removed = 1 WHERE online_user_id = #{onlineUserId} 
+  	</update>
+  	
+  	<update id="updateOperatorSta">
+  		UPDATE gome_online_user SET usable_status = #{usableStatus} WHERE online_user_id = #{onlineUserId} 
+  	</update>
+  	
+</mapper>

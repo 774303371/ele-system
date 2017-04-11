@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="ele-system"
+  id="myeclipse.1491797037072"
+  context-root="/ele-system"
+  j2ee-spec="5.0"
+  archive="ele-system.war">
+  <attributes>
+    <attribute name="webrootdir" value="src/main/webapp" />
+  </attributes>
+</project-module>
+

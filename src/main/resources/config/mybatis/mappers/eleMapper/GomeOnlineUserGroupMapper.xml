@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gome.ocs.manager.dao.IGomeOnlineUserGroupDao">
+	<resultMap id="GomeOnlineUserGroup" type="com.gome.ocs.manager.model.GomeOnlineGroupUserModel">
+	    <result column="online_user_id" jdbcType="VARCHAR" property="onlineUserId" />
+	    <result column="online_user_name" jdbcType="VARCHAR" property="onlineUserName" />
+	    <result column="online_name" jdbcType="VARCHAR" property="onlineName" />
+	    <result column="group_id" jdbcType="VARCHAR" property="groupId" />
+	    <result column="group_name" jdbcType="VARCHAR" property="groupName" />
+	    <result column="group_describe" jdbcType="VARCHAR" property="groupDescribe" />
+  	</resultMap>
+  	
+  	<sql id="GomeOnlineUserColumn">
+  		online_user_id,online_user_name,online_name,is_removed,creat_time 
+  	</sql>
+  	
+  	<insert id="addUserToGroup" parameterType="com.gome.ocs.manager.model.GomeOnlineGroupUserModel">
+  		INSERT INTO gome_online_group_user 
+  		<trim prefix="(" suffix=")" suffixOverrides=",">
+  			<if test="onlineUserId != null">
+  				online_user_id,
+  			</if>
+  			<if test="groupId != null">
+  				group_id,
+  			</if>
+  		</trim>
+  		<trim prefix="values (" suffix=")" suffixOverrides=",">
+  			<if test="onlineUserId != null">
+  				#{onlineUserId},
+  			</if>
+  			<if test="groupId != null">
+  				#{groupId},
+  			</if>
+  		</trim>
+  	</insert>
+  	
+  	<delete id="deleteUserFromGroup" parameterType="INTEGER">
+  		delete from gome_online_group_user where id in 
+  		<foreach collection="list" item="item" index="index"
+	   separator="," open="(" close=")">
+	   (#{item,jdbcType=VARCHAR})
+	  </foreach>
+  	</delete>
+  	
+  	<delete id="deleteUserGroup" parameterType="String" >
+  		delete from gome_online_group_user where group_id = #{groupId} 
+  	</delete>
+  	
+  	<insert id="addUsersToGroup" parameterType="java.util.List">
+  		 insert into gome_online_group_user (online_user_id,group_id) 
+	  values 
+	  <foreach collection="list" item="item" index="index"
+	   separator=",">
+	   (#{item.onlineUserId,jdbcType=VARCHAR},#{item.groupId,jdbcType=VARCHAR})
+	  </foreach>
+  	</insert>
+  	
+  	<insert id="addUserToGroups" parameterType="java.util.List">
+  		 insert into gome_online_group_user (online_user_id,group_id) 
+	  values 
+	  <foreach collection="list" item="item" index="index"
+	   separator=",">
+	   (#{item.onlineUserId,jdbcType=VARCHAR},#{item.groupId,jdbcType=VARCHAR})
+	  </foreach>
+  	</insert>
+  	
+  	<select id="getUserGroupForUserIdGroupId" parameterType="String" resultMap="GomeOnlineUserGroup">
+  		SELECT * FROM gome_online_group_user WHERE group_id = #{groupId} AND online_user_id = #{onlineUserId}
+  	</select>
+  	
+  	<select id="getAllUserForGroup" parameterType="String" resultMap="GomeOnlineUserGroup">
+  		SELECT a.group_id,a.group_name,a.group_describe,a.group_parent_id,c.online_user_id,c.online_user_name,c.online_name FROM gome_online_group a 
+  		 LEFT JOIN gome_online_group_user b ON a.group_id = b.group_id 
+  		 LEFT JOIN gome_online_user c ON b.online_user_id = c.online_user_id WHERE c.is_removed = 1 AND a.group_id = #{groupId}
+  	</select>
+  	
+</mapper>

@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.gome.spring.compents:dynamo:0.0.2-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/gome/spring/compents/dynamo/0.0.2-SNAPSHOT/dynamo-0.0.2-20170316.031050-11.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/gome/spring/compents/dynamo/0.0.2-SNAPSHOT/dynamo-0.0.2-20170316.031050-11-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/gome/spring/compents/dynamo/0.0.2-SNAPSHOT/dynamo-0.0.2-20170316.031050-11-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

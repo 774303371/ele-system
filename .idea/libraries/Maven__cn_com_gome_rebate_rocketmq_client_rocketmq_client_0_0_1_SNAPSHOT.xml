@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: cn.com.gome.rebate.rocketmq-client:rocketmq-client:0.0.1-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/cn/com/gome/rebate/rocketmq-client/rocketmq-client/0.0.1-SNAPSHOT/rocketmq-client-0.0.1-20150504.041811-8.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/cn/com/gome/rebate/rocketmq-client/rocketmq-client/0.0.1-SNAPSHOT/rocketmq-client-0.0.1-20150504.041811-8-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/cn/com/gome/rebate/rocketmq-client/rocketmq-client/0.0.1-SNAPSHOT/rocketmq-client-0.0.1-20150504.041811-8-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
