@@ -30,9 +30,9 @@ public class TestController {
 	public ModelAndView testGetView() {
 
 		ModelAndView view = new ModelAndView();
-		Map<String, Object> map = testService.testServiceMethod();
+//		Map<String, Object> map = testService.testServiceMethod();
+//		view.addObject("resultmap",map);
 		view.addObject("returnResult","testGetView");
-		view.addObject("resultmap",map);
 		view.setViewName("test/returnResult");
 		return view;
 	}
@@ -60,10 +60,10 @@ public class TestController {
 			params.put(name, valueStr);
 		}
 
-		Map<String, Object> map = testService.testServiceMethod();
+//		Map<String, Object> map = testService.testServiceMethod();
+//		log.info("map " + map);
 		log.info("testJson " + params);
-		log.info("map " + map);
-		return map;
+		return params;
 	}
 
 

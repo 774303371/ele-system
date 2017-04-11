@@ -8,4 +8,21 @@
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
+
+    <!-- 配置DispatchcerServlet -->
+    8     <servlet>
+    9         <servlet-name>springDispatcherServlet</servlet-name>
+    10         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    11         <!-- 配置Spring mvc下的配置文件的位置和名称 -->
+    12         <init-param>
+    13             <param-name>contextConfigLocation</param-name>
+    14             <param-value>classpath:spring-servlet.xml</param-value>
+    15         </init-param>
+    16         <load-on-startup>1</load-on-startup>
+    17     </servlet>
+    18
+    19     <servlet-mapping>
+    20         <servlet-name>springDispatcherServlet</servlet-name>
+    21         <url-pattern>/</url-pattern>
+    22     </servlet-mapping>
 </web-app>

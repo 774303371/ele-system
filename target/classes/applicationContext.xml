@@ -46,8 +46,9 @@
     <aop:config>  
         <aop:pointcut id="commonMethod" expression="execution(* com.ele.system.service..*.*(..))" />  
         <aop:advisor advice-ref="txAdviceCommon" pointcut-ref="commonMethod" /> 
-    </aop:config> 
-       
+    </aop:config>
+
+    <import resource="classpath:spring-servlet.xml" />
     <import resource="classpath:config/spring/druid-spring.xml" />
     <import resource="classpath:config/spring/ELE-dataSource.xml" />
     <import resource="classpath:config/spring/ELE-dubbo.xml" />
