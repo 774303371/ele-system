@@ -25,16 +25,16 @@ public class TestController {
 	
 	private static final Log log = LogFactory.getLog(TestController.class);
 
-//	@Resource
-//	private TestService testService;
+	@Resource
+	private TestService testService;
 	
 
 	@RequestMapping(value="/testGetView", method = {RequestMethod.GET})
 	public ModelAndView testGetView() {
 
 		ModelAndView view = new ModelAndView();
-//		Map<String, Object> map = testService.testServiceMethod();
-//		view.addObject("resultmap",map);
+		Map<String, Object> map = testService.testServiceMethod();
+		view.addObject("resultmap",map);
 		view.addObject("returnResult","testGetView");
 		view.setViewName("test/returnResult");
 		return view;

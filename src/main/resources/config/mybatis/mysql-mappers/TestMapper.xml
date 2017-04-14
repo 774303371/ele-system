@@ -14,7 +14,7 @@
 			id,name,username,role,status,class
   	</sql>
 
-	<select id="testIdaoMethod" resultMap="java.util.Map">
+	<select id="testIdaoMethod" resultMap="java.util.List">
   		select
 		<include refid="TestColumn"/>
   		FROM ele_user limit 0,1

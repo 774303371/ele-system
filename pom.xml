@@ -8,7 +8,7 @@
   <description/>
   <properties>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	  <spring.version>3.1.4.RELEASE</spring.version>
+	  <spring.version>3.2.1.RELEASE</spring.version>
 	  <spring.remoting.version>2.0.8</spring.remoting.version>
 	  <servlet.api.version>2.5</servlet.api.version>
 	  <aspectj.version>1.7.2</aspectj.version>
@@ -48,11 +48,11 @@
 			<version>1.6.1</version>
 		</dependency>
 
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>fastjson</artifactId>
-			<version>1.1.15</version>
-		</dependency>
+		 <dependency>
+			 <groupId>com.alibaba</groupId>
+			 <artifactId>fastjson</artifactId>
+			 <version>1.2.5</version>
+		 </dependency>
 
 		<!-- Spring Managed Dependencies start -->
 		<dependency>
@@ -149,6 +149,14 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
+
+	 	<!--
+		 <dependency>
+			 <groupId>org.springframework</groupId>
+			 <artifactId>spring-asm</artifactId>
+			 <version>3.1.4.Release</version>
+		 </dependency>
+		 -->
 
 		<!-- Spring Managed Dependencies end -->
 
