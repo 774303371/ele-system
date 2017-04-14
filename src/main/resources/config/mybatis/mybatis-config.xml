@@ -23,6 +23,6 @@
 	</plugins>
 
 	<mappers>
-  		<mapper resource="config/mybatis/mappers/TestMapper.xml" />
+			<mapper resource="config/mybatis/mysql-mappers/TestMapper.xml" />
  	</mappers>
 </configuration>  

@@ -9,43 +9,33 @@
                 http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd  
     			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd"
 	default-autowire="byName">
-    
-	<bean id="dataSourceNewCenter" class="com.alibaba.druid.pool.DruidDataSource"
-		destroy-method="close">
-		<property name="filters" value="mergeStat,wall,stat,log4j" />
-		<property name="url" value="${onlineSession.url}" />
-		<property name="username" value="${onlineSession.username}" />
-		<property name="password" value="${onlineSession.password}" />
-		<property name="maxActive" value="${onlineSession.maxActive}" />
-	    <property name="initialSize" value="${onlineSession.initialSize}" />
-	    <property name="maxWait" value="${onlineSession.maxWait}" />
-	    <property name="minIdle" value="${onlineSession.minIdle}" />
-	    <property name="timeBetweenEvictionRunsMillis" value="${onlineSession.timeBetweenEvictionRunsMillis}" />
-	    <property name="minEvictableIdleTimeMillis" value="${onlineSession.minEvictableIdleTimeMillis}" />
-	    <property name="validationQuery" value="SELECT 'x' from dual" />
-	    <property name="testWhileIdle" value="true" />
-	    <property name="testOnBorrow" value="false" />
-	    <property name="testOnReturn" value="false" />
-	    <property name="poolPreparedStatements" value="true" />
-	    <property name="maxPoolPreparedStatementPerConnectionSize" value="${onlineSession.maxPoolPreparedStatementPerConnectionSize}" />
-	    <property name="proxyFilters">
-	        <list>
-	            <ref bean="stat-filter" />
-	        </list>
-	    </property>
+
+
+	<context:component-scan base-package="com.ele.system.dao" />
+
+	<!-- DAO配置 -->
+	<context:property-placeholder location="classpath:config.properties"/>
+
+	<bean id="mysql" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName"     value="${mysql_driver}"/>
+		<property name="url"         value="${mysql_url}"/>
+		<property name="username"    value="${mysql_username}"/>
+		<property name="password"    value="${mysql_password}"/>
 	</bean>
-	
+	<bean id="oracle" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName"     value="${ora_driver}"/>
+		<property name="url"         value="${ora_url}"/>
+		<property name="username"    value="${ora_username}"/>
+		<property name="password"    value="${ora_password}"/>
+	</bean>
+
+
 	
 	<bean id="sqlSessionFactoryNewCenter" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSourceNewCenter" />
+		<property name="dataSource" ref="${dataSource}" />
 		<property name="configLocation" value="classpath:config/mybatis/mybatis-config.xml" />
 	</bean>
 	
-	<!-- SqlSessionTemplate保证了使用spring的当前的事务 -->
-	<!-- <bean id="sqlSessionNewCenter" class="org.mybatis.spring.SqlSessionTemplate">-->
-	<!-- 	<constructor-arg index="0" ref="sqlSessionFactoryNewCenter" />-->
-		<!-- <constructor-arg index="1" value="BATCH" /> -->
-	<!-- </bean>-->
 
 	<!-- 自动扫描 mapper 接口 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
@@ -54,13 +44,34 @@
 	</bean>
 	
     <bean id="transactionManagerCommon" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSourceNewCenter" />
+		<property name="dataSource" ref="${dataSource}" />
 	</bean>
 	
 	<bean id="stat-filter" class="com.alibaba.druid.filter.stat.StatFilter">
 	    <property name="logSlowSql" value="true" />
 	</bean>
 	<tx:annotation-driven transaction-manager="transactionManagerNewCenter" proxy-target-class="true" />
-	
-	
+
+
+	<tx:advice id="txAdviceCommon" transaction-manager="transactionManagerCommon">
+		<tx:attributes>
+			<tx:method name="add*" propagation="REQUIRED"  rollback-for="java.lang.Exception"/>
+			<tx:method name="save*" propagation="REQUIRED"  rollback-for="java.lang.Exception"/>
+			<tx:method name="del*" propagation="REQUIRED"  rollback-for="java.lang.Exception"/>
+			<tx:method name="delete*" propagation="REQUIRED"  rollback-for="java.lang.Exception"/>
+			<tx:method name="update*" propagation="REQUIRED"  rollback-for="java.lang.Exception"/>
+			<tx:method name="create*" propagation="REQUIRED"  rollback-for="java.lang.Exception"/>
+			<tx:method name="handle*" propagation="REQUIRED"  rollback-for="java.lang.Exception"/>
+			<tx:method name="test*" propagation="REQUIRED"  rollback-for="java.lang.Exception"/>
+		</tx:attributes>
+	</tx:advice>
+<!--
+	<aop:config>
+		<aop:pointcut id="commonMethod" expression="execution(* com.ele.system.service..*.*(..))" />
+		<aop:advisor advice-ref="txAdviceCommon" pointcut-ref="commonMethod" />
+	</aop:config>
+-->
+
+
+
 </beans>

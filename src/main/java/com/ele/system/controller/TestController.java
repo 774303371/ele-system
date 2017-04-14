@@ -5,12 +5,14 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ele.system.service.TestService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,7 +25,8 @@ public class TestController {
 	
 	private static final Log log = LogFactory.getLog(TestController.class);
 
-	private TestService testService;
+//	@Resource
+//	private TestService testService;
 	
 
 	@RequestMapping(value="/testGetView", method = {RequestMethod.GET})
@@ -41,8 +44,6 @@ public class TestController {
 	@RequestMapping(value="/testJson", method = {RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
 	public Map receiveEBCResult(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		String localIp = request.getLocalAddr();
-		InetAddress address3 = InetAddress.getByName(localIp);
 		request.setCharacterEncoding("UTF-8");
 		Map params = new HashMap();
 		//获得POST 过来参数设置到新的params中

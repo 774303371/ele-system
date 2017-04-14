@@ -13,49 +13,12 @@
     			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
     			http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd"
 	default-autowire="byName">
-	
-	<context:component-scan base-package="com.ele.system.manager" />
 
-	<!-- <bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
-		<property name="messageConverters">
-		<list>
-			<bean class="org.springframework.http.converter.xml.SourceHttpMessageConverter"/>
-			<bean class="org.springframework.http.converter.FormHttpMessageConverter"/>
-			<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/>
-		</list>
-		</property>
-	</bean>
-	
-    <import resource="classpath:druid-spring.xml" /> -->
-    <!-- <import resource="classpath:openFront-consumer-dubbo.xml" />
-    <import resource="classpath:openFront-common-bean.xml" /> -->
-    
-	<tx:advice id="txAdviceCommon" transaction-manager="transactionManagerCommon">  
-        <tx:attributes>  
-            <tx:method name="add*" propagation="REQUIRED"  rollback-for="java.lang.Exception"/>   
-            <tx:method name="save*" propagation="REQUIRED"  rollback-for="java.lang.Exception"/>
-            <tx:method name="del*" propagation="REQUIRED"  rollback-for="java.lang.Exception"/>   
-            <tx:method name="delete*" propagation="REQUIRED"  rollback-for="java.lang.Exception"/>   
-            <tx:method name="update*" propagation="REQUIRED"  rollback-for="java.lang.Exception"/>  
-            <tx:method name="create*" propagation="REQUIRED"  rollback-for="java.lang.Exception"/>  
-            <tx:method name="handle*" propagation="REQUIRED"  rollback-for="java.lang.Exception"/> 
-            <tx:method name="test*" propagation="REQUIRED"  rollback-for="java.lang.Exception"/>   
-        </tx:attributes>  
-    </tx:advice>  
-    
-    <aop:config>  
-        <aop:pointcut id="commonMethod" expression="execution(* com.ele.system.service..*.*(..))" />  
-        <aop:advisor advice-ref="txAdviceCommon" pointcut-ref="commonMethod" /> 
-    </aop:config>
+	<context:component-scan base-package="com.ele.system" />
 
-    <import resource="classpath:spring-servlet.xml" />
-    <import resource="classpath:config/spring/druid-spring.xml" />
+
+    <import resource="classpath:config/spring/spring-servlet.xml" />
     <import resource="classpath:config/spring/ELE-dataSource.xml" />
-    <import resource="classpath:config/spring/ELE-dubbo.xml" />
-    <import resource="classpath:config/spring/ELE-dubbo-provider.xml" />
-    <import resource="classpath:config/spring/ELE-dubbo-consumer.xml" />
-    <import resource="classpath:config/spring/ELE-rocketmq.xml" />
-    <import resource="classpath:config/spring/ELE-service-bean.xml" />
     
     
 </beans>

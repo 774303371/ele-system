@@ -1,9 +1,9 @@
 package com.ele.system.service;
 
 import com.ele.system.dao.ITestDao;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.Map;
 
 /**
@@ -14,12 +14,12 @@ import java.util.Map;
 @Service
 public class TestService {
 
-    @Autowired
+    @Resource
     private ITestDao testDao;
 
     public Map<String,Object> testServiceMethod(){
-
-       return testDao.testIdaoMethod();
+        System.out.println("TestService.testServiceMethod");
+       return null;//testDao.testIdaoMethod();
     }
 
 }

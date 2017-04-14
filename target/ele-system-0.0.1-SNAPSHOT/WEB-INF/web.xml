@@ -16,7 +16,7 @@
     11         <!-- 配置Spring mvc下的配置文件的位置和名称 -->
     12         <init-param>
     13             <param-name>contextConfigLocation</param-name>
-    14             <param-value>classpath:spring-servlet.xml</param-value>
+    14             <param-value>classpath:applicationContext.xml</param-value>
     15         </init-param>
     16         <load-on-startup>1</load-on-startup>
     17     </servlet>
