@@ -11,6 +11,7 @@
     <title>Title</title>
 </head>
 <body>
-${returnResult};
+returnResult:${returnResult};<br>
+resultmap:${resultmap};
 </body>
 </html>

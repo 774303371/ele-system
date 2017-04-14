@@ -34,6 +34,7 @@ public class TestController {
 
 		ModelAndView view = new ModelAndView();
 		Map<String, Object> map = testService.testServiceMethod();
+		System.out.println("map..."+map);
 		view.addObject("resultmap",map);
 		view.addObject("returnResult","testGetView");
 		view.setViewName("test/returnResult");

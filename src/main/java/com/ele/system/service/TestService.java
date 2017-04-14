@@ -19,7 +19,7 @@ public class TestService {
 
     public Map<String,Object> testServiceMethod(){
         System.out.println("TestService.testServiceMethod");
-       return null;//testDao.testIdaoMethod();
+       return testDao.testIdaoMethod();
     }
 
 }
