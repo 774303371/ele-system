@@ -13,15 +13,11 @@
 	  <servlet.api.version>2.5</servlet.api.version>
 	  <aspectj.version>1.7.2</aspectj.version>
 	  <ojdbc6_version>11.2.0.2.0</ojdbc6_version>
+
+	  <java_source_version>1.7</java_source_version>
   </properties>
 
  <dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
-			<scope>test</scope>
-		</dependency>
 
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -150,13 +146,6 @@
 			<version>${spring.version}</version>
 		</dependency>
 
-	 	<!--
-		 <dependency>
-			 <groupId>org.springframework</groupId>
-			 <artifactId>spring-asm</artifactId>
-			 <version>3.1.4.Release</version>
-		 </dependency>
-		 -->
 
 		<!-- Spring Managed Dependencies end -->
 
@@ -222,13 +211,6 @@
 			<version>1.0.13</version>
 		</dependency>
 
-		<!-- 分页插件 -->
-		<dependency>
-			<groupId>com.github.pagehelper</groupId>
-			<artifactId>pagehelper</artifactId>
-			<version>5.0.0-beta</version>
-		</dependency>
-
 		 <dependency>
 			 <groupId>commons-dbcp</groupId>
 			 <artifactId>commons-dbcp</artifactId>
@@ -247,19 +229,6 @@
 			<version>3.1</version>
 		</dependency>
 
-		
-	 <!-- JUNIT -->
-	 <dependency>
-		<groupId>junit</groupId>
-		<artifactId>junit</artifactId>
-		<version>4.11</version>
-	</dependency>
-
-	 <dependency>
-		 <groupId>junit</groupId>
-		 <artifactId>junit</artifactId>
-		 <version>4.13-SNAPSHOT</version>
-	 </dependency>
  </dependencies>
   <build>
     <plugins>
