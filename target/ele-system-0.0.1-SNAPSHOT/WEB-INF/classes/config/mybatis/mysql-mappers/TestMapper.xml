@@ -10,9 +10,6 @@
 	    <result column="privilege" jdbcType="VARCHAR" property="privilege" />
   	</resultMap>
   	-->
-  	<sql id="TestColumn">
-			id,name,username,role,status,class
-  	</sql>
 
 	<select id="testIdaoMethod" resultType="java.util.Map">
   		select
